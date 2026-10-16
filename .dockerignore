@@ -1,0 +1,10 @@
+.git/
+node_modules/
+.next/
+.run/
+.env
+.env.local
+.env*.local
+coverage/
+*.tsbuildinfo
+README.md
