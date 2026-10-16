@@ -311,6 +311,18 @@ function ValidationPanel({
         ? undefined
         : "down";
 
+  // The API warns that directional accuracy is absent, which an API consumer
+  // needs: an explained absence is the point. This page already renders that
+  // explanation as its own notice, so repeating it verbatim underneath reads
+  // as two separate problems rather than one deliberate omission.
+  const unduplicatedWarnings = metrics.warnings.filter(
+    (warning) =>
+      !(
+        metrics.directional_accuracy === null &&
+        warning.startsWith("no directional accuracy is reported")
+      ),
+  );
+
   return (
     <div>
       <div className="grid grid-4">
@@ -403,9 +415,9 @@ function ValidationPanel({
         />
       )}
 
-      {metrics.warnings.length > 0 && (
+      {unduplicatedWarnings.length > 0 && (
         <div className="mt-2">
-          {metrics.warnings.map((warning, i) => (
+          {unduplicatedWarnings.map((warning, i) => (
             <Notice key={i} variant="warn">
               {warning}
             </Notice>
